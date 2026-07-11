@@ -5,7 +5,7 @@ local WindUI = loadstring(game:HttpGet(
 
 -- Tạo cửa sổ chính
 local Window = WindUI:CreateWindow({
-Title = "KOMAT UNITY HUB",
+Title = "Nhat Minh HUB",
 Icon = "rbxassetid://7733658504",
 Author = "Nhật Minh", -- Đã cập nhật thành Nhật Minh
 Folder = "NhatMinhHub",
