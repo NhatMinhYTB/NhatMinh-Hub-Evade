@@ -7,7 +7,7 @@ local WindUI = loadstring(game:HttpGet(
 local Window = WindUI:CreateWindow({
 Title = "Nhat Minh HUB",
 Icon = "rbxassetid://7733658504",
-Author = "Nhật Minh", -- Đã cập nhật thành Nhật Minh
+Author = "Nhật Minh", 
 Folder = "NhatMinhHub",
 Size = UDim2.fromOffset(420, 320),
 Transparent = true,
@@ -20,9 +20,7 @@ local SettingsTab = Window:Tab({
     Icon = "settings"
 })
 
--- =========================
--- DANH MỤC CHÍNH
--- =========================
+
 local MainMenu = Window:Tab({
 Title = "Menu Chính",
 Icon = "home"
@@ -33,50 +31,33 @@ local EmoteTab = Window:Tab({
     Icon = "smile"
 })
 
--- =========================
--- DANH MỤC KHÁC
--- =========================
+
 local ExtraTab = Window:Tab({
     Title = "Khác",
     Icon = "box"
 })
 
--- =========================
--- TAB FARM
--- =========================
 local FarmTab = Window:Tab({
     Title = "Tự động Farm",
     Icon = "coins"
 })
 
--- =========================
--- TAB HIỂN THỊ (ESP/VIEW)
--- =========================
 local ViewTab = Window:Tab({
     Title = "Hiển thị",
     Icon = "eye"
 })
  
--- =========================
--- TAB SỰ KIỆN (WINDUI)
--- =========================
 local EventTab = Window:Tab({
     Title = "Sự kiện",
     Icon = "zap"
 })
 
--- =========================
--- DỊCH VỤ HỆ THỐNG
--- =========================
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
 local player = Players.LocalPlayer
 
--- =========================
--- TỰ ĐỘNG NHẢY (BUNNY HOP PRO)
--- =========================
 local autoJump = false
 local autoJumpConnection = nil
 
@@ -92,8 +73,7 @@ autoJumpConnection = RunService.Heartbeat:Connect(function()
     local hum = char:FindFirstChild("Humanoid")  
     local hrp = char:FindFirstChild("HumanoidRootPart")  
     if not hum or not hrp then return end  
-
-    -- Raycast xuống mặt đất  
+  
     local rayOrigin = hrp.Position  
     local rayDirection = Vector3.new(0, -6, 0)  
 
@@ -106,7 +86,7 @@ autoJumpConnection = RunService.Heartbeat:Connect(function()
     if result then  
         local distance = (rayOrigin - result.Position).Magnitude  
 
-        -- Gần chạm đất sẽ tự động bật lên ngay lập tức  
+        
         if distance <= 4 then  
             hum:ChangeState(Enum.HumanoidStateType.Jumping)  
         end  
@@ -122,9 +102,6 @@ autoJumpConnection = nil
 end
 end
 
--- =========================
--- GIAO DIỆN NÚT NỔI (FLOATING GUI)
--- =========================
 local FloatingGui = Instance.new("ScreenGui")
 FloatingGui.Name = "FloatingBounceGui"
 FloatingGui.Parent = game.CoreGui
@@ -158,7 +135,6 @@ stroke.Thickness = 2.5
 stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border  
 stroke.Color = Color3.fromRGB(0,120,255)  
 
--- Hiệu ứng đổi màu viền mượt mà  
 task.spawn(function()  
     while btn.Parent do  
         TweenService:Create(stroke, TweenInfo.new(0.8), {  
@@ -194,9 +170,6 @@ floatingBounceButton = nil
 end
 end
 
--- =========================
--- CÁC NÚT BẬT/TẮT TRÊN GIAO DIỆN
--- =========================
 MainMenu:Toggle({
 Title = "Tự động nhảy",
 Desc = "Tự động thực hiện bước nhảy (Bhop)",
@@ -224,9 +197,6 @@ end
 end
 })
 
--- =========================
--- HỆ THỐNG TRƯỢT VÔ HẠN (INFINITY SLIDE SYSTEM PRO)
--- =========================
 local infiniteSlideEnabled = false
 local cachedTables = nil
 local plrModel = nil
@@ -235,9 +205,6 @@ local floatingSlideButton = nil
 
 local slideFrictionValue = -8
 
--- =========================
--- CẤU HÌNH TRƯỢT
--- =========================
 local keys = {
 "Friction","AirStrafeAcceleration","JumpHeight","RunDeaccel",
 "JumpSpeedMultiplier","JumpCap","SprintCap","WalkSpeedMultiplier",
@@ -297,9 +264,6 @@ end
 
 end
 
--- =========================
--- KÍCH HOẠT TRƯỢT VÔ HẠN
--- =========================
 local function setInfiniteSlide(state)
 infiniteSlideEnabled = state
 
@@ -334,8 +298,7 @@ else
     plrModel = nil  
     setFriction(5)
 end  
-
--- Đồng bộ trạng thái nút nổi  
+ 
 if floatingSlideButton then  
     floatingSlideButton.BackgroundColor3 =  
         state and Color3.fromRGB(0,200,0) or Color3.fromRGB(200,0,0)  
@@ -346,9 +309,7 @@ end
 
 end
 
--- =========================
--- NÚT NỔI TRƯỢT VÔ HẠN
--- =========================
+
 local function createSlideButton()
 if floatingSlideButton then return end
 
@@ -368,17 +329,14 @@ btn.Parent = FloatingGui
 btn.Active = true  
 btn.Draggable = true  
 
--- Bo góc  
 local corner = Instance.new("UICorner", btn)  
 corner.CornerRadius = UDim.new(0,18)  
 
--- Viền  
 local stroke = Instance.new("UIStroke", btn)  
 stroke.Thickness = 2.5  
 stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border  
 stroke.Color = Color3.fromRGB(0,120,255)  
 
--- Hiệu ứng đổi màu viền  
 task.spawn(function()  
     while btn.Parent do  
         TweenService:Create(  
@@ -396,8 +354,7 @@ task.spawn(function()
         task.wait(0.8)  
     end  
 end)  
-
--- Sự kiện nhấn nút  
+ 
 btn.MouseButton1Click:Connect(function()  
     setInfiniteSlide(not infiniteSlideEnabled)  
 end)
@@ -411,9 +368,6 @@ floatingSlideButton = nil
 end
 end
 
--- =========================
--- NÚT TRƯỢT VÔ HẠN TRÊN MENU
--- =========================
 MainMenu:Toggle({
 Title = "Trượt vô hạn",
 Desc = "Giữ trạng thái trượt không giới hạn",
@@ -437,9 +391,6 @@ end
 end
 })
 
--- =========================
--- HỆ THỐNG TỰ ĐỘNG CHỐNG NGÃ / NẢY (AUTO TRIP PRO)
--- =========================
 local autoTrip = false
 local autoTripConnection = nil
 
@@ -448,9 +399,6 @@ local bounceDistance = 6
 
 local floatingTripButton = nil
 
--- =========================
--- RAYCAST ĐA ĐIỂM
--- =========================
 local rayParams = RaycastParams.new()
 rayParams.FilterType = Enum.RaycastFilterType.Blacklist
 
@@ -476,9 +424,6 @@ return false
 
 end
 
--- =========================
--- KÍCH HOẠT AUTO TRIP
--- =========================
 local function startAutoTrip()
 if autoTripConnection then return end
 
@@ -492,8 +437,7 @@ autoTripConnection = RunService.Heartbeat:Connect(function()
     if not hrp then return end  
 
     local vel = hrp.Velocity  
-
-    -- Điều kiện: Đang rơi tự do mạnh + Gần mặt đất  
+ 
     if vel.Y < -35 and isNearGround(hrp, char) then  
         hrp.Velocity = Vector3.new(vel.X, bounceHeight, vel.Z)  
     end
@@ -508,9 +452,6 @@ autoTripConnection = nil
 end
 end
 
--- =========================
--- NÚT NỔI AUTO TRIP
--- =========================
 local function createTripButton()
 if floatingTripButton then return end
 
@@ -523,7 +464,7 @@ btn.AnchorPoint = Vector2.new(0.5,0)
 btn.BackgroundColor3 = Color3.fromRGB(180,220,255)  
 btn.BackgroundTransparency = 0.35  
 btn.TextColor3 = Color3.fromRGB(0,70,150)  
-btn.Text = autoTrip and "Auto Trip: BẬT" or "Auto Trip: TẮT"  
+btn.Text = autoTrip and "Auto TrimTrimp: BẬT" or "Auto Trimp: TẮT"  
 btn.Font = Enum.Font.GothamBold  
 btn.TextSize = 14  
 btn.Parent = FloatingGui  
@@ -573,11 +514,9 @@ floatingTripButton = nil
 end
 end
 
--- =========================
--- THIẾT LẬP AUTO TRIP TRÊN MENU
--- =========================
+
 MainMenu:Toggle({
-Title = "Tự động chống ngã (Auto Trip)",
+Title = "Tự động chống ngã (Auto TrimTrimp)",
 Desc = "Tự động nẩy lên khi rơi mạnh gần đất",
 Default = false,
 Callback = function(state)
@@ -605,13 +544,12 @@ end
 end
 })
 
--- Thanh trượt chỉnh độ cao nẩy
 MainMenu:Slider({
 Title = "Độ cao lực nẩy",
 Desc = "Tùy chỉnh khoảng cách bật nhảy lên",
 Value = {
 Min = 50,
-Max = 200,
+Max = 100000,
 Default = 100
 },
 Callback = function(val)
@@ -619,9 +557,6 @@ bounceHeight = val
 end
 })
 
--- =========================
--- HỆ THỐNG LÀM NGẮT KẾT NỐI TẠM THỜI (LAG SWITCH)
--- =========================
 local floatingLagButton = nil
 
 local function lagSwitch(duration)
@@ -633,7 +568,6 @@ end
 end
 end
 
--- Nút bấm trên Menu chính
 MainMenu:Button({
 Title = "Kích hoạt Lag tạm thời",
 Desc = "Gây lag đứng hình trong 0.5 giây",
@@ -642,7 +576,6 @@ lagSwitch(0.5)
 end
 })
 
--- Tạo nút nổi cho tính năng Lag Switch
 local function createLagFloatingButton()
 if floatingLagButton then return end
 
@@ -715,9 +648,6 @@ end
 })
 
 
--- =========================
--- HỆ THỐNG TỰ ĐỘNG BẾ/VÁC (AUTO CARRY)
--- =========================
 local autoCarry = false
 local autoCarryConnection = nil
 local floatingCarryButton = nil
@@ -776,7 +706,6 @@ MainMenu:Toggle({
     end
 })
 
--- Nút nổi của hệ thống tự động vác
 local function createCarryButton()
     if floatingCarryButton then
         floatingCarryButton:Destroy()
@@ -860,9 +789,6 @@ MainMenu:Toggle({
     end
 })
 
--- =========================
--- CÀI ĐẶT THÔNG SỐ NHÂN VẬT
--- =========================
 local currentSettings = {
     Speed = 1500,
     JumpCap = 1,
@@ -872,7 +798,6 @@ local currentSettings = {
 getgenv().ApplyMode = "Chưa tối ưu"
 getgenv().AutoApplySettings = true
 
--- Giới hạn tối đa để tránh lỗi game
 local MAX_VALUE = 30000
 
 local function safe(val)
@@ -882,7 +807,6 @@ local function safe(val)
     return val
 end
 
--- Bộ kiểm tra bảng mục tiêu
 local requiredFields = {
     Friction=true, AirStrafeAcceleration=true, JumpHeight=true, RunDeaccel=true,
     JumpSpeedMultiplier=true, JumpCap=true, SprintCap=true, WalkSpeedMultiplier=true,
@@ -925,7 +849,6 @@ local function getMatchingTables()
     return result
 end
 
--- Áp dụng thông số chỉnh sửa
 local function applyToTables()
     local mode = getgenv().ApplyMode
     local tables = getMatchingTables()
@@ -955,16 +878,11 @@ local function applyToTables()
     end
 end
 
--- Tự động làm mới dữ liệu liên tục tránh bị mất chỉ số
 RunService.Heartbeat:Connect(function()
     if getgenv().AutoApplySettings then
         applyToTables()
     end
 end)
-
--- =========================
--- CÁC THANH TRƯỢT TRONG TAB CÀI ĐẶT
--- =========================
 
 SettingsTab:Slider({
     Title = "Tốc độ di chuyển (Speed)",
@@ -1005,7 +923,6 @@ SettingsTab:Slider({
     end
 })
 
--- Lựa chọn phương thức áp dụng cấu hình
 SettingsTab:Dropdown({
     Title = "Phương thức áp dụng",
     Values = {"Chưa tối ưu", "Đã tối ưu"},
@@ -1017,24 +934,18 @@ SettingsTab:Dropdown({
     end
 })
 
--- Sửa lỗi khi hồi sinh nhân vật
 player.CharacterAdded:Connect(function()
     task.wait(1)
     cachedTables = nil
     applyToTables()
 end)
 
-
--- =========================
--- HỆ THỐNG TỰ HỒI SINH GIẢ (FAKE REVIVE SYSTEM)
--- =========================
 getgenv().AutoRespawnEnabled = false
 local autoRespawnMethod = "Hồi Sinh Giả"
 
 local lastSavedPosition = nil
 local running = false
 
--- Vòng lặp liên tục theo dõi vị trí cũ của nhân vật
 local function trackPosition(char)
     task.spawn(function()
         local hrp = char:WaitForChild("HumanoidRootPart", 5)
@@ -1048,7 +959,6 @@ local function trackPosition(char)
     end)
 end
 
--- Core chính xử lý hồi sinh giả lập vị trí
 local function fakeRevive()
     if running then return end
     running = true
@@ -1069,7 +979,6 @@ local function fakeRevive()
             if isDead then
                 task.wait(2)
 
-                -- Gửi yêu cầu hồi sinh lên máy chủ
                 pcall(function()
                     local ev = ReplicatedStorage:FindFirstChild("Events")
                     if ev then
@@ -1081,14 +990,14 @@ local function fakeRevive()
                     end
                 end)
 
-                -- Chờ nhân vật mới tải xong
+                
                 local newChar
                 repeat
                     newChar = player.Character
                     task.wait()
                 until newChar and newChar:FindFirstChild("HumanoidRootPart")
 
-                -- Đưa nhân vật quay trở lại vị trí trước khi chết
+                
                 if lastSavedPosition then
                     newChar.HumanoidRootPart.CFrame = CFrame.new(lastSavedPosition + Vector3.new(0,3,0))
                 end
@@ -1133,9 +1042,6 @@ MainMenu:Dropdown({
     end
 })
 
--- =========================
--- HỆ THỐNG XOAY VÒNG (SPIN SYSTEM)
--- =========================
 local spinEnabled = false
 local spinConnection = nil
 
@@ -1168,7 +1074,7 @@ local function startSpin()
         local hrp = char:FindFirstChild("HumanoidRootPart")
         if not hrp then return end
 
-        -- Xoay nhân vật quanh trục Y với tốc độ góc là 100
+        
         hrp.AssemblyAngularVelocity = Vector3.new(0, 100, 0)
     end)
 end
@@ -1188,9 +1094,6 @@ MainMenu:Toggle({
     end
 })
 
--- =========================
--- BOT TRỐN THÔNG MINH (WARP BOT SMART ESCAPE)
--- =========================
 local warpBotActive = false
 local warpBotConnection = nil
 local Workspace = game:GetService("Workspace")
